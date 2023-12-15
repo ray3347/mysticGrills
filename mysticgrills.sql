@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2023 at 10:09 PM
+-- Generation Time: Dec 15, 2023 at 11:31 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 8.0.7
 
@@ -72,7 +72,7 @@ INSERT INTO `order` (`orderId`, `userId`, `orderStatus`, `orderDate`, `orderTota
 (11, 2, 'Served', '2023-12-13 00:03:32', 316),
 (12, 2, 'Pending', '2023-12-13 03:16:16', 139),
 (13, 2, 'Paid', '2023-12-13 03:18:39', 12),
-(14, 2, 'Pending', '2023-12-13 03:18:49', 139);
+(14, 2, 'Paid', '2023-12-13 03:18:49', 139);
 
 -- --------------------------------------------------------
 
@@ -136,7 +136,8 @@ INSERT INTO `receipt` (`receiptId`, `orderId`, `receiptPaymentAmount`, `receiptP
 (1, 9, 150, '2023-12-13 03:12:31', 'Debit'),
 (2, 7, 120, '2023-12-13 03:14:10', 'Card'),
 (3, 8, 90, '2023-12-13 03:15:48', 'Credit'),
-(4, 13, 15, '2023-12-13 03:20:15', 'Cash');
+(4, 13, 15, '2023-12-13 03:20:15', 'Cash'),
+(5, 14, 140, '2023-12-15 16:39:22', 'De');
 
 -- --------------------------------------------------------
 
@@ -179,21 +180,21 @@ ALTER TABLE `menuitem`
 --
 ALTER TABLE `order`
   ADD PRIMARY KEY (`orderId`),
-  ADD KEY `userId` (`userId`);
+  ADD KEY `order_ibfk_1` (`userId`);
 
 --
 -- Indexes for table `orderitem`
 --
 ALTER TABLE `orderitem`
-  ADD KEY `orderId` (`orderId`),
-  ADD KEY `menuItemId` (`menuItemId`);
+  ADD KEY `orderitem_ibfk_1` (`orderId`),
+  ADD KEY `orderitem_ibfk_2` (`menuItemId`);
 
 --
 -- Indexes for table `receipt`
 --
 ALTER TABLE `receipt`
   ADD PRIMARY KEY (`receiptId`),
-  ADD KEY `orderId` (`orderId`);
+  ADD KEY `receipt_ibfk_1` (`orderId`);
 
 --
 -- Indexes for table `user`
@@ -221,7 +222,7 @@ ALTER TABLE `order`
 -- AUTO_INCREMENT for table `receipt`
 --
 ALTER TABLE `receipt`
-  MODIFY `receiptId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `receiptId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user`
@@ -237,20 +238,20 @@ ALTER TABLE `user`
 -- Constraints for table `order`
 --
 ALTER TABLE `order`
-  ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`);
+  ADD CONSTRAINT `order_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `user` (`userId`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `orderitem`
 --
 ALTER TABLE `orderitem`
-  ADD CONSTRAINT `orderitem_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `order` (`orderId`),
-  ADD CONSTRAINT `orderitem_ibfk_2` FOREIGN KEY (`menuItemId`) REFERENCES `menuitem` (`menuItemId`);
+  ADD CONSTRAINT `orderitem_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `order` (`orderId`) ON DELETE CASCADE,
+  ADD CONSTRAINT `orderitem_ibfk_2` FOREIGN KEY (`menuItemId`) REFERENCES `menuitem` (`menuItemId`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `receipt`
 --
 ALTER TABLE `receipt`
-  ADD CONSTRAINT `receipt_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `order` (`orderId`);
+  ADD CONSTRAINT `receipt_ibfk_1` FOREIGN KEY (`orderId`) REFERENCES `order` (`orderId`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
