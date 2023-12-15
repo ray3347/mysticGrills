@@ -140,7 +140,7 @@ public class UserController {
 	}
 	
 	public boolean deleteUser(User user) {
-		String dbQuery = "DELETE from WHERE userId = ?";
+		String dbQuery = "DELETE from user WHERE userId = ?";
 		
 		try(
 				Connection connection = DBConnection.getInstance().getConnection();

@@ -174,7 +174,7 @@ public class OrderController {
 	
 	public ArrayList<Order> getAllUnpaidOrder(){
 		ArrayList<Order> orderList = new ArrayList<Order>();
-		String dbQuery = "SELECT * FROM `order` WHERE orderStatus NOT LIKE 'Paid'";
+		String dbQuery = "SELECT * FROM `order` WHERE orderStatus LIKE 'Served'";
 		
 		try(
 				Connection connection = DBConnection.getInstance().getConnection();

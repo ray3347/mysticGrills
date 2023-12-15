@@ -7,6 +7,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -18,7 +19,7 @@ public class LoginPage extends Stage {
 	private Scene loginScene = new Scene(vbox, 500, 300);
 	
 	private TextField emailField = new TextField();
-	private TextField passwordField = new TextField();
+	private PasswordField passwordField = new PasswordField();
 	
 	public LoginPage() {
 		this.setScene(createLoginPage());
